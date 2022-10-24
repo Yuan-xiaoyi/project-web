@@ -519,6 +519,8 @@ export default {
           if(this.currentPage > 1)
             this.currentPage--;
         }
+      }).catch(e => {
+        this.$message.error(e.msg)
       })
     },
     add(){

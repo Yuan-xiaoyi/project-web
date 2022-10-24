@@ -101,5 +101,14 @@ const user = {
       data: data, 
     })
   },
+
+  refreshToken: (data) =>{
+    return instance({
+      url: '/refreshToken',
+      method: 'get',
+      headers: {"refreshToken": true},
+      params: data
+    })
+  }
 }
 export default user;

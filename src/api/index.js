@@ -1,6 +1,7 @@
 //引入axios和封装好的config
 import axios from 'axios';
 import Vue from 'vue';
+import apiUser from './user'
 const config = require('../../config/index')
 
 // axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8' 
@@ -43,7 +44,18 @@ instance.interceptors.request.use(
 )
  
 //如有需要，可在请求收到回复之后，做拦截处理
-instance.interceptors.response.use( (res) => {
+instance.interceptors.response.use(
+  (res) => {
+    // 是否需要刷新token
+    if(res.headers.refreshtoken == "true"){
+      let userInfo = Vue.cookie.get("userInfo") && JSON.parse(Vue.cookie.get("userInfo"));
+      apiUser.refreshToken({phoneNumber: userInfo.phoneNumber}).then(r => {
+        if(r.token){
+          Vue.cookie.set('token', r.token)
+        }
+      });
+    }
+
     //请根据项目前后端约定，更改对应字段取值
     let resData = res.data;
     let code = resData.code || '200';
