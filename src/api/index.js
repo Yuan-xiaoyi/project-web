@@ -46,14 +46,19 @@ instance.interceptors.request.use(
 //如有需要，可在请求收到回复之后，做拦截处理
 instance.interceptors.response.use(
   (res) => {
+    // 是否需要刷新token, 前端调用接口
+    // if(res.headers.refreshtoken == "true"){
+    //   let userInfo = Vue.cookie.get("userInfo") && JSON.parse(Vue.cookie.get("userInfo"));
+    //   apiUser.refreshToken({phoneNumber: userInfo.phoneNumber}).then(r => {
+    //     if(r.token){
+    //       Vue.cookie.set('token', r.token)
+    //     }
+    //   });
+    // }
+    
     // 是否需要刷新token
-    if(res.headers.refreshtoken == "true"){
-      let userInfo = Vue.cookie.get("userInfo") && JSON.parse(Vue.cookie.get("userInfo"));
-      apiUser.refreshToken({phoneNumber: userInfo.phoneNumber}).then(r => {
-        if(r.token){
-          Vue.cookie.set('token', r.token)
-        }
-      });
+    if(res.headers.refreshtoken){
+      Vue.cookie.set('token', res.headers.refreshtoken)
     }
 
     //请根据项目前后端约定，更改对应字段取值
