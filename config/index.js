@@ -5,7 +5,7 @@
 const path = require('path')
 
 module.exports = {
-  BASE_URL: 'http://localhost:8899',
+  BASE_URL:  'https://www.shjmanage.top/shjmanagement',//   "http://localhost:8899",//  
   dev: {
 
     // Paths
@@ -45,7 +45,8 @@ module.exports = {
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
     assetsPublicPath: './',
-
+    
+    disableHostCheck: true,
     /**
      * Source Maps
      */

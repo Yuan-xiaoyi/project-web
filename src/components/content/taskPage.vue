@@ -119,7 +119,7 @@
       width="50%"
       :close-on-click-modal="false">
       <div>
-        <el-form :model="dialogForm" label-width="100px" :rules="rules" class="dialogForm" ref="dialogForm" :inline="true">
+        <el-form :model="dialogForm" label-width="120px" :rules="rules" class="dialogForm" ref="dialogForm" :inline="true">
           <el-form-item label="选择项目" prop="projectId" v-show="!isEdit">
             <el-select v-model="dialogForm.projectId" placeholder="请选择" filterable :filter-method="dataFilter(dialogForm.projectId, projects)" clearable @change="getHandles">
               <el-option
@@ -206,7 +206,7 @@
           <div class="detail_label" style="margin-bottom: 20px;">审核</div>
           <el-input v-model="inputDeal" class="detail_value" type="textarea" :maxlength="200" show-word-limit placeholder="请输入修改意见" :rows="5"/>
         </div>
-        <div class="details">
+        <div v-show="false" class="details">
           <div class="detail_label" style="margin-bottom: 20px;">是否更换任务处理人</div>
           <el-select v-model="dealForm.dealList[dealForm.dealList.length - 1].handPersonId" placeholder="选择任务处理人"
             style="margin-bottom: 12px;"
@@ -219,7 +219,6 @@
               :value="item.userId">
             </el-option>
           </el-select>
-          <!-- <el-date-picker v-model="deadline" type="datetime"style="text-indent: 0;width: 100%;"></el-date-picker> -->
         </div>
         <div class="details" style="margin-left: calc(50% - 80px)">
           <el-button type="primary" @click="pass">审核通过</el-button>

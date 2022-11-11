@@ -3,7 +3,7 @@
     <div style="height: 100%;">
       <el-table
         :data="tableData"
-        height="calc(100% - 90px)"
+        height="100%"
         style="width: 100%; margin-bottom: 8px;"
       >
         <el-table-column prop="userName" label="用户名" width="" align="center"></el-table-column>
@@ -12,7 +12,7 @@
         <el-table-column prop="manageProjects" label="管理项目" width="" align="center"></el-table-column>
         <el-table-column prop="sendTasks" label="发布任务" width="" align="center"></el-table-column>
         <el-table-column prop="dealTasks" label="处理任务" width="" align="center"></el-table-column>
-        <el-table-column prop="finnishedPercent" label="任务按时完成率(已完成任务)" width="" align="center"></el-table-column>
+        <el-table-column prop="finnishedPercent" label="(已完成)任务按时完成率" width="" align="center"></el-table-column>
         <el-table-column prop="getBackPercent" label="任务回退率" width="" align="center"></el-table-column>
       </el-table>
       <!-- <el-pagination
@@ -159,7 +159,7 @@ export default {
           that.finnishedInTime = 0
           let list = [];
           for(let i = 0; i < res.length; i++){
-            if(list.find(listItem => listItem.taskId == res[i].taskId) == undefined){
+            if(list.find(listItem => listItem.taskId == res[i].taskId) == undefined && res[i].state == 1){
               list.push(res[i])
             }
           }

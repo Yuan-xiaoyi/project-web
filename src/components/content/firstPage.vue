@@ -116,16 +116,15 @@ export default {
         let apiArr = [];
         let dataArr = [];
         let data = new Date();
-        let year = data.getFullYear();
         data.setMonth(data.getMonth()+1, 1)//获取到当前月份,设置月份
         for (let i = 0; i < 12; i++) {
           data.setMonth(data.getMonth() - 1);//每次循环一次 月份值减1
           let m = data.getMonth() + 1;
           m = m < 10 ? "0" + m : m;
-          let yearMonth = year + "-" + (m)
-          dataArr.push(yearMonth)
+          let yearMonth = data.getFullYear() + "-" + (m)
+          dataArr.unshift(yearMonth)
           let param = {taskName: '', state: '', createTime: yearMonth, isTask: 1}
-          apiArr.push(apiTask.findTaskBySelection({"param": param, "arr": arr}))
+          apiArr.unshift(apiTask.findTaskBySelection({"param": param, "arr": arr}))
         }
 
         Promise.all(apiArr).then(r => {

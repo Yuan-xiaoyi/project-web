@@ -63,6 +63,7 @@
       <el-table-column prop="mainManager" label="(客户)主管领导" width="200" align="center"></el-table-column>
       <el-table-column prop="fenManager" label="(客户)分管领导" width="200" align="center"></el-table-column>
       <el-table-column prop="agent" label="(客户)经办人" width="200" align="center"></el-table-column>
+      <el-table-column prop="important" label="关键客情" width="200" align="center"></el-table-column>
       <el-table-column prop="bidding" label="是否我方中标" width="120" align="center"></el-table-column>
       <el-table-column label="操作" width="100" fixed="right" align="center">
         <template slot-scope="scope" style="display: inline-flex;">
@@ -147,6 +148,10 @@
           <el-form-item label="经办人" prop="agent">
             <el-input v-model="dialogForm.agent" clearable :disabled="!isXMmanger && !isAdminOrManager"></el-input>
           </el-form-item>
+          <el-form-item label="关键客情" prop="important">
+            <el-input v-model="dialogForm.important" clearable :disabled="!isXMmanger && !isAdminOrManager"></el-input>
+          </el-form-item>
+          
           <el-form-item label="是否我方中标" v-if="isEdit" prop="bidding">
             <el-select v-model="dialogForm.bidding" placeholder="请选择" :disabled="dialogForm.state != 2 || !isXMmanger && !isAdminOrManager">
               <el-option
@@ -394,6 +399,7 @@ export default {
         mainManager: "",
         fenManager: "",
         agent: "",
+        important: "",
         bidding: "",
         details: ""
       },
@@ -420,6 +426,9 @@ export default {
           { required: false, message: '', trigger: 'blur' }
         ],
         agent: [
+          { required: false, message: '', trigger: 'blur' }
+        ],
+        important: [
           { required: false, message: '', trigger: 'blur' }
         ],
         bidding: [
@@ -461,6 +470,9 @@ export default {
         },{
           label: '解决方案经理',
           value: '解决方案经理'
+        },{
+          label: '关键客情支撑',
+          value: '关键客情支撑'
         }
       ],
       memberUsernames: []
@@ -497,21 +509,6 @@ export default {
               e.significance = parseInt(e.significance)
             }
           })
-          // 排序
-          // for(let i = 0; i < arr.length - 1; i++){
-          //   for(let j = 0; j < arr.length - i - 1; j++){
-          //     if(arr[j].state > arr[j+1].state){
-          //       let temp = arr[j];
-          //       arr[j] = arr[j+1];
-          //       arr[j+1] = temp
-          //     }
-          //     if(arr[j].state == arr[j+1].state && arr[j].significance < arr[j+1].significance){
-          //       let temp = arr[j];
-          //       arr[j] = arr[j+1];
-          //       arr[j+1] = temp
-          //     }
-          //   } 
-          // }
         }
         this.tableData = arr;
         this.total = this.tableData.length
@@ -729,8 +726,8 @@ export default {
     exportTable(){
       let that = this;
       require.ensure([], () => {
-        const tHeader = ["项目名", "创建时间", "项目分类", "项目级别", "项目状态", "项目业主", "主管领导(客户)", "分管领导(客户)", "经办人(客户)", "是否我方中标","项目描述"];
-        const filterVal = ["projectName", "createTime", "industry", "significance", "state", "proprietor", "mainManager", "fenManager", "agent", "bidding", "details"];
+        const tHeader = ["项目名", "创建时间", "项目分类", "项目级别", "项目状态", "项目业主", "主管领导(客户)", "分管领导(客户)", "经办人(客户)", "关键客情", "是否我方中标","项目描述"];
+        const filterVal = ["projectName", "createTime", "industry", "significance", "state", "proprietor", "mainManager", "fenManager", "agent", "important", "bidding", "details"];
 
         // 导出表格字段名
         const data = that.formatJson(filterVal, that.tableData);

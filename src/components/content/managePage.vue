@@ -79,7 +79,9 @@ export default {
       pagesize: 10,
       total: 0,
 
-      dialogForm:{},
+      dialogForm:{
+        post: "common"
+      },
       dialogVisible: false,
       dialogTitle: "新增任务",
       isEdit: false,
@@ -142,6 +144,7 @@ export default {
     search(){
       apiUser.findAllUser().then(res => {
         this.tableData = res
+        this.total = res.length
       }).catch(e => {
         this.$message.error(e.msg)
       })
